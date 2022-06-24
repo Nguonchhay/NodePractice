@@ -1,0 +1,25 @@
+<html>
+    <body>
+        <script>
+            console.log('*** Product order');
+
+        
+            async function storeProduct() {
+                const orderProductPromise = new Promise(function(resolve) {
+                    setTimeout(function() {
+                        console.log('store product');
+                        resolve({
+                            name: "product"
+                        });
+                    }, 5000);
+                });
+
+                const result = await orderProductPromise;
+                console.log('store complete');
+            }
+
+            storeProduct();
+            console.log('Done');
+        </script>
+    </body>
+</html>

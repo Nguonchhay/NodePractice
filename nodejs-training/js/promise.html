@@ -1,0 +1,65 @@
+<html>
+    <body>
+        <script>
+            console.log('*** Product order');
+
+            // const orderProduct = (resolve) => {
+            //     setTimeout(function() {
+            //         console.log('Store product');
+            //     }, 5000);
+            //     console.log('orderProduct complete: ' + new Date());
+            // };
+
+            const orderProductPromise = new Promise(function(resolve, reject) {
+                if (false) {
+                    setTimeout(function() {
+                        resolve({
+                        name: "product"
+                    });
+                    }, 5000);
+                    console.log('orderProduct complete: ' + new Date());
+                } else {
+                    reject(new Error("Reject"));
+                }
+            });
+
+            const notifyAdmin = () => {
+                setTimeout(function() {
+                    console.log('Email sent');
+                }, 3000);
+                console.log('notifyAdmin complete: ' + new Date());
+            };
+
+            // const notifyAdminPromise = new Promise(function(resolve, reject) {
+            //     try {
+            //         notifyAdmin();
+            //         resolve({
+            //             subject: "ProductOrdering"
+            //         });
+            //     } catch(err) {
+            //         reject(new Error({}));
+            //     }
+            // });
+
+            const thankYou = () => {
+                console.log('thankYou complete: ' + new Date());
+            }
+
+            
+            // orderProduct();
+            // notifyAdmin();
+            // thankYou();
+            
+            orderProductPromise.then(
+                result => {
+                    console.log(result);
+                    thankYou();
+                },
+                err => {
+                    console.log(err);
+                }
+            );
+            
+        </script>
+    </body>
+</html>
