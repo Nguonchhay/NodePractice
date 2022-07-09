@@ -1,1 +1,30 @@
-<h1>Login page</h1>
+<div class="col-md-4 col-sm-12 shadow-lg p-5 bg-light">
+    <div class="text-center">
+        <h3 class="text-primary">Login to System</h3>
+    </div>
+    <div class="p-4">
+        <form action="/users/login" method="POST">
+            <div class="input-group mb-3">
+                <span class="input-group-text bg-primary">
+                    <i class="bi bi-envelope text-white"></i>
+                </span>
+                <input type="email" name="email" class="form-control" placeholder="Email">
+            </div>
+
+            <div class="input-group mb-3">
+                <span class="input-group-text bg-primary">
+                    <i class="bi bi-key-fill text-white"></i>
+                </span>
+                <input type="password" name="password" class="form-control" placeholder="password">
+            </div>
+            <div class="d-grid col-12 mx-auto">
+                <button class="btn btn-primary" type="submit"><span></span> Sign In</button>
+            </div>
+            <p class="text-center mt-3">Do not have an account?
+                <a href="/users/register">
+                    <span class="text-primary">Sign up</span>
+                </a>
+            </p>
+        </form>
+    </div>
+</div>

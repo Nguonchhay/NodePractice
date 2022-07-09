@@ -1,13 +1,14 @@
 const express = require('express');
-const { loginView, registerView } = require('./../../controller/userController');
+const { 
+    loginView,
+    postLogin,
+    registerView 
+} = require('./../../controller/userController');
 
 const router = express.Router();
 
 router.get('/login', loginView);
-router.post('/login', (req, res) => {
-    console.log('post User');
-    res.redirect('/users');
-});
+router.post('/login', postLogin);
 
 router.get('/register', registerView);
 

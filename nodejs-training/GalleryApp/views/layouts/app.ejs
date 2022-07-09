@@ -17,7 +17,7 @@
     </head>
     <body>
         <!-- Navigation-->
-        <%- include('./../partials/nav') %>
+        <%- include('./../partials/nav', { authUser: user }); %>
         
         <!-- Page Header-->
         <%- include('./../partials/header') %>

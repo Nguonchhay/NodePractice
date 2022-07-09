@@ -1,5 +1,7 @@
 const homeView = (req, res) => {
-    res.render('pages/home');
+    res.render('pages/home', {
+        user: req.session.user
+    });
 };
 
 module.exports = {
