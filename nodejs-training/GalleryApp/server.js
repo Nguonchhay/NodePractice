@@ -29,7 +29,6 @@ app.set('layout', './layouts/app');
 app.set('view engine', 'ejs');
 app.set('views', 'views');
 
-
 // Configure routes
 require('./routes/index')(app);
 //app.use('/api', require('./routes/api/user'));
