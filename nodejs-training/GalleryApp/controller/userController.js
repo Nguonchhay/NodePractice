@@ -32,9 +32,22 @@ const usersView = (req, res) => {
         .catch(err => console.log(err));
 };
 
+const usersPgView = (req, res) => {
+    userModel.listPg()
+        .then(result => {
+            res.render('pages/users/index', {
+                user: null,
+                pageTitle: 'Users',
+                users: result.rows
+            });
+        })
+        .catch(err => console.log(err));
+};
+
 module.exports = {
     loginView,
     postLogin,
     registerView,
-    usersView
+    usersView,
+    usersPgView
 };

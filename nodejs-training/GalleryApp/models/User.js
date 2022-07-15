@@ -1,4 +1,5 @@
 const dbService = require('./../services/MySqlService');
+const pgDbService = require('./../services/PostgresService');
 
 class User {
     constructor(email, password = null, fullName, sex = null, profile = null) {
@@ -11,6 +12,10 @@ class User {
 
     static list() {
         return dbService.execute('SELECT * FROM users');
+    }
+
+    static listPg() {
+        return pgDbService.query('SELECT * FROM users');
     }
 }
 
