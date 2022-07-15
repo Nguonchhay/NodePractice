@@ -6,6 +6,9 @@ const expressSession = require('express-session');
 const app = express();
 const PORT = process.env.PORT || 3003;
 
+// Define environment with .env
+require('dotenv').config();
+
 // Session
 app.use(expressSession({
     secret: 'my-secret',
