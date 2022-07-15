@@ -1,3 +1,5 @@
+const userModel = require('./../models/User');
+
 const loginView = (req, res) => {
     res.render('pages/auth/login', {
         layout: 'layouts/auth'
@@ -18,8 +20,21 @@ const registerView = (req, res) => {
     });
 }
 
+const usersView = (req, res) => {
+    userModel.list()
+        .then(([rows]) => {
+            res.render('pages/users/index', {
+                user: null,
+                pageTitle: 'Users',
+                users: rows
+            });
+        })
+        .catch(err => console.log(err));
+};
+
 module.exports = {
     loginView,
     postLogin,
-    registerView
+    registerView,
+    usersView
 };
