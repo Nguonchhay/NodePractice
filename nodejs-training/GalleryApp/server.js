@@ -41,7 +41,7 @@ require('./routes/index')(app);
 const Product = require('./models/Product');
 Product.sync();
 const Category = require('./models/Category');
-Category.sync();
+Category.sync({ force: true });
 // sequalizeMysql.sync({ force: true });
 
 app.listen(PORT, () => {
