@@ -2,7 +2,6 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const expressLayouts = require('express-ejs-layouts');
 const expressSession = require('express-session');
-const sequalizeMysql = require('./services/SequalizeMysql');
 
 const app = express();
 const PORT = process.env.PORT || 3003;
@@ -38,12 +37,23 @@ require('./routes/index')(app);
 //app.use('/api', require('./routes/api/user'));
 
 // Sync defined table to table in database
+const sequelize = require('./services/SequelizePostgres');
 const Product = require('./models/Product');
-Product.sync();
 const Category = require('./models/Category');
-Category.sync({ force: true });
-// sequalizeMysql.sync({ force: true });
+const Post = require('./models/Post');
 
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-});
+Post.belongsTo(Category, { constraints: true, onDelete: 'CASCADE'});
+Category.hasMany(Post);
+
+sequelize
+    .sync({ force: true })
+    .then(result => {
+        app.listen(PORT, () => {
+            console.log(`Server is running on port ${PORT}`);
+        });
+    })
+    .catch(err => console.log(err));
+
+// sequalizeMysql.sync({ force: true });
+// const sequalizeMysql = require('./services/SequalizeMysql');
+
