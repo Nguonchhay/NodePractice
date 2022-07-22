@@ -32,11 +32,15 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false
       },
+      unit_price: {
+        type: Sequelize.DOUBLE,
+        allowNull: false
+      },
       total: {
         type: Sequelize.DOUBLE,
         allowNull: false
       },
-      create_at: {
+      created_at: {
         allowNull: false,
         type: Sequelize.DATE
       },
