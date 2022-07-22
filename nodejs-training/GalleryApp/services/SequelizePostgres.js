@@ -3,11 +3,11 @@ const Sequelize = require('sequelize');
 const sequelize = new Sequelize(
     'galleryapp',
     'postgres',
-    'root',
+    'postgres',
     {
         dialect: 'postgres',
         logging: false,
-        host: 'localhost',
+        host: '0.0.0.0',
         port: 5432
     }
 );
