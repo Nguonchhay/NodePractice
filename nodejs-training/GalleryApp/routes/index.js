@@ -3,6 +3,7 @@ const userRoute = require('./web/user');
 const categoryRotue = require('./web/category');
 
 const userApiRoute = require('./api/user');
+const productApiRoute = require('./api/product');
 
 const routes = app => {
     app.use('/', pageRoute);
@@ -10,6 +11,7 @@ const routes = app => {
     app.use('/categories', categoryRotue);
 
     app.use('/api', userApiRoute);
+    app.use('/api', productApiRoute);
 }
 
 module.exports = routes

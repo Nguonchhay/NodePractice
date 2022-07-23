@@ -39,14 +39,6 @@ module.exports = {
       total: {
         type: Sequelize.DOUBLE,
         allowNull: false
-      },
-      created_at: {
-        allowNull: false,
-        type: Sequelize.DATE
-      },
-      updated_at: {
-        allowNull: false,
-        type: Sequelize.DATE
       }
     });
   },

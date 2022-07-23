@@ -11,18 +11,14 @@ module.exports = {
         first_name: 'San',
         last_name: 'Sok',
         email: 'sok@gmail.com',
-        password: '12345678',
-        created_at: new Date(),
-        updated_at: new Date()
+        password: '12345678'
       },
       {
         id: 2,
         first_name: 'Mey',
         last_name: 'Long',
         email: 'mey@gmail.com',
-        password: '12345678',
-        created_at: new Date(),
-        updated_at: new Date()
+        password: '12345678'
       }
     ], {});
     

@@ -12,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      this.hasMany(models.Product, { foreignKey: 'category_id' });
     }
   }
   Category.init({
@@ -19,6 +20,8 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'Category',
+    tableName: 'categories',
+    timestamps: false
   });
   return Category;
 };

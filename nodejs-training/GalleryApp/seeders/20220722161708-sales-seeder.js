@@ -10,9 +10,7 @@ module.exports = {
         sale_date: new Date(),
         qty: 1,
         unit_price: 5.0,
-        total: 5.0,
-        created_at: new Date(),
-        updated_at: new Date()
+        total: 5.0
       },
       {
         id: 2,
@@ -21,9 +19,7 @@ module.exports = {
         sale_date: new Date(),
         qty: 2,
         unit_price: 1.0,
-        total: 2.0,
-        created_at: new Date(),
-        updated_at: new Date()
+        total: 2.0
       }
     ], {});
   },

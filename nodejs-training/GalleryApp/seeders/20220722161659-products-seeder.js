@@ -9,9 +9,7 @@ module.exports = {
         name: "Dutch Milk",
         unit_price: 4.5,
         image_url: "https://",
-        description: "",
-        created_at: new Date(),
-        updated_at: new Date()
+        description: ""
       },
       {
         id: 2,
@@ -19,9 +17,7 @@ module.exports = {
         name: "Darsany",
         unit_price: 0.5,
         image_url: "https://",
-        description: "",
-        created_at: new Date(),
-        updated_at: new Date()
+        description: ""
       }
     ], {});
   },

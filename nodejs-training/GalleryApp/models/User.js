@@ -12,6 +12,10 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
     }
+
+    toJSON() {
+      return { ...this.get(), updated_at: undefined }
+    }
   }
   User.init({
     first_name: DataTypes.STRING,
@@ -21,6 +25,8 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'User',
+    tableName: 'users',
+    timestamps: false
   });
   return User;
 };

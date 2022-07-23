@@ -37,23 +37,29 @@ require('./routes/index')(app);
 //app.use('/api', require('./routes/api/user'));
 
 // Sync defined table to table in database
-const sequelize = require('./services/SequelizePostgres');
-const Product = require('./models/Product');
-const Category = require('./models/Category');
-const Post = require('./models/Post');
+// const sequelize = require('./services/SequelizePostgres');
+// const Product = require('./models/Product');
+// const Category = require('./models/Category');
+// const Post = require('./models/Post');
 
-Post.belongsTo(Category, { constraints: true, onDelete: 'CASCADE'});
-Category.hasMany(Post);
+// Post.belongsTo(Category, { constraints: true, onDelete: 'CASCADE'});
+// Category.hasMany(Post);
 
-sequelize
-    .sync({ force: true })
-    .then(result => {
-        app.listen(PORT, () => {
-            console.log(`Server is running on port ${PORT}`);
-        });
-    })
-    .catch(err => console.log(err));
+// sequelize
+//     .sync({ force: true })
+//     .then(result => {
+//         app.listen(PORT, () => {
+//             console.log(`Server is running on port ${PORT}`);
+//         });
+//     })
+//     .catch(err => console.log(err));
 
 // sequalizeMysql.sync({ force: true });
 // const sequalizeMysql = require('./services/SequalizeMysql');
 
+const { sequelize } = require('./models/index'); 
+
+app.listen(PORT, async () => {
+    await sequelize.authenticate();
+    console.log(`Server is running on port ${PORT}`);
+});

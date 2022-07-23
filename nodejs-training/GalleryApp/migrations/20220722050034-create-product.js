@@ -31,14 +31,6 @@ module.exports = {
       description: {
         type: Sequelize.TEXT,
         allowNull: true
-      },
-      created_at: {
-        allowNull: false,
-        type: Sequelize.DATE
-      },
-      updated_at: {
-        allowNull: false,
-        type: Sequelize.DATE
       }
     });
   },

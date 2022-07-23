@@ -5,15 +5,11 @@ module.exports = {
     await queryInterface.bulkInsert('categories', [
       {
         id: 1,
-        name: 'Milk',
-        created_at: new Date(),
-        updated_at: new Date()
+        name: 'Milk'
       },
       {
         id: 2,
-        name: 'Water',
-        created_at: new Date(),
-        updated_at: new Date()
+        name: 'Water'
       }
     ], {});
   },
