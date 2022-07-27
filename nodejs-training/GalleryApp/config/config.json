@@ -1,10 +1,11 @@
 {
   "development": {
-    "username": "postgres",
-    "password": "root",
-    "database": "galleryapp",
-    "host": "localhost",
-    "dialect": "postgres"
+    "username": "DB_USER",
+    "password": "DB_PASSWORD",
+    "database": "DB_NAME",
+    "host": "DB_HOST",
+    "port": "DB_PORT",
+    "dialect": "DIALECT"
   },
   "test": {
     "username": "root",

@@ -4,7 +4,6 @@ const expressLayouts = require('express-ejs-layouts');
 const expressSession = require('express-session');
 
 const app = express();
-const PORT = process.env.PORT || 3003;
 
 // Define environment with .env
 require('dotenv').config();
@@ -58,6 +57,7 @@ require('./routes/index')(app);
 // const sequalizeMysql = require('./services/SequalizeMysql');
 
 const { sequelize } = require('./models/index'); 
+const PORT = process.env.PORT || 3003;
 
 app.listen(PORT, async () => {
     await sequelize.authenticate();
