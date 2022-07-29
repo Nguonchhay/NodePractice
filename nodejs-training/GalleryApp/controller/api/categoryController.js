@@ -1,7 +1,14 @@
-const { Category } = require('./../../models');
+const { Category, Product } = require('./../../models');
 
 const listCategory = async (req, res) => {
-    const categories = await Category.findAll();
+    const categories = await Category.findAll({
+        include: [
+            {
+                model: Product,
+                as: 'products'
+            }
+        ]
+    });
     res.json(categories);
 };
 
@@ -53,7 +60,17 @@ const deleteCategory = async (req, res) => {
     })
     .catch(err => {
         res.json(err);
-    });;
+    });
+}
+
+const lastCategory = (req, res) => {
+    Category.selectTop()
+    .then(([rows]) => {
+        res.json(rows);
+    })
+    .catch(err => {
+        res.json(err);
+    });
 }
 
 module.exports = {
@@ -61,5 +78,6 @@ module.exports = {
     showCategory,
     storeCategory,
     updateCategory,
-    deleteCategory
+    deleteCategory,
+    lastCategory
 }

@@ -12,7 +12,11 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      this.hasMany(models.Product, { foreignKey: 'category_id' });
+      this.hasMany(models.Product, { foreignKey: 'category_id', 'as': 'products' });
+    }
+
+    static async selectTop() {
+      return sequelize.query(`SELECT * FROM ${this.tableName} ORDER BY id DESC LIMIT 1;`);
     }
   }
   Category.init({

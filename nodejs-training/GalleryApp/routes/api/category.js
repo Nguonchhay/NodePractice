@@ -23,12 +23,14 @@ const {
     showCategory,
     storeCategory,
     updateCategory,
-    deleteCategory
+    deleteCategory,
+    lastCategory
 } = require('./../../controller/api/categoryController');
 
 const router = express.Router();
 
 router.get('/categories', listCategory);
+router.get('/categories/last', lastCategory);
 router.get('/categories/:category/show', showCategory);
 router.post('/categories', storeCategory);
 router.put('/categories/:category/update', updateCategory);
