@@ -5,14 +5,14 @@ const path = require('path');
 const Sequelize = require('sequelize');
 const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || 'development';
-const config = require(__dirname + '/../config/config.json')[env];
+const config = require(__dirname + '/../config/config.js')[env];
 const db = {};
 
-// Update DB connection from .env
-Object.entries(config).forEach(entry => {
-  const [key, value] = entry;
-  config[key] = process.env[value];
-});
+// Update DB connection from .env => do not work with sequelize-cli
+// Object.entries(config).forEach(entry => {
+//   const [key, value] = entry;
+//   config[key] = process.env[value];
+// });
 
 let sequelize;
 if (config.use_env_variable) {
