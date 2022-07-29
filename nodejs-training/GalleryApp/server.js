@@ -35,6 +35,9 @@ app.set('views', 'views');
 require('./routes/index')(app);
 //app.use('/api', require('./routes/api/user'));
 
+// Configure API docs
+require('./docs')(app);
+
 // Sync defined table to table in database
 // const sequelize = require('./services/SequelizePostgres');
 // const Product = require('./models/Product');
