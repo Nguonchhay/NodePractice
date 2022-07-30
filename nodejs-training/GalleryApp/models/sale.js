@@ -11,11 +11,28 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate({ User, Product }) {
       // define association here
-      this.belongsTo(User, { foreignKey: 'user_id' });
-      this.belongsTo(Product, { foreignKey: 'product_id' });
+      this.belongsTo(User, { foreignKey: 'user_id', 'as': 'user' });
+      this.belongsTo(Product, { foreignKey: 'product_id', 'as': 'product' });
+    }
+
+    static async getRawSales() {
+      return sequelize.query('');
+    }
+
+    toJSON() {
+      return {
+        ...this.get(),
+        product_id: undefined
+      }
     }
   }
   Sale.init({
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+      allowNull: false
+    },
     user_id: DataTypes.INTEGER,
     product_id: DataTypes.INTEGER,
     sale_date: DataTypes.DATE,
