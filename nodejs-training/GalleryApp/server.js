@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const expressLayouts = require('express-ejs-layouts');
 const expressSession = require('express-session');
+const mongoose = require("mongoose");
 
 const app = express();
 
@@ -59,10 +60,27 @@ require('./docs')(app);
 // sequalizeMysql.sync({ force: true });
 // const sequalizeMysql = require('./services/SequalizeMysql');
 
-const { sequelize } = require('./models/index'); 
+//const { sequelize } = require('./models/index');
+
+const conn_str = 'mongodb+srv://admin:admin12345@attractionapp.ld0iq.mongodb.net/galleryapp?retryWrites=true&w=majority'
+mongoose.connect(
+    conn_str,
+    { 
+        useNewUrlParser: true, 
+        useUnifiedTopology: true 
+    },
+    (err) => {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log("mongodb is connected");
+        }
+    }
+);
+
 const PORT = process.env.PORT || 3003;
 
 app.listen(PORT, async () => {
-    await sequelize.authenticate();
+    //await sequelize.authenticate();
     console.log(`Server is running on port ${PORT}`);
 });
