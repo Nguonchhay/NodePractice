@@ -4,6 +4,9 @@ const expressLayouts = require('express-ejs-layouts');
 const expressSession = require('express-session');
 const mongoose = require("mongoose");
 
+const passport = require('passport');
+const GoogleStrategy = require('passport-google-oauth20');
+
 const app = express();
 
 // Define environment with .env
@@ -13,7 +16,7 @@ require('dotenv').config();
 app.use(expressSession({
     secret: 'my-secret',
     resave: false,
-    saveUninitialized: false,
+    saveUninitialized: true,
     cookie: {
         expires: 600000 // 1 hour
     }
@@ -22,6 +25,27 @@ app.use(expressSession({
 // Configure form data parser
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+// Passport with Google login
+passport.use(new GoogleStrategy(
+    {
+        clientID: process.env.GOOGLE_CLIENT_ID,
+        clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+        callbackURL: process.env.GOOGLE_CALLBACK_URL,
+        scope: ['profile'],
+        state: true
+    },
+    (accessToken, refreshToken, profile, cb) => {
+        console.log('Google call back');
+        console.log('accessToken => ', accessToken);
+        console.log('refreshToken => ', refreshToken);
+        console.log('profile => ', profile);
+    }
+));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
 
 // Render static assets
 app.use(express.static('public'));

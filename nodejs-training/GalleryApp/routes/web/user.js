@@ -4,7 +4,9 @@ const {
     postLogin,
     registerView,
     usersView,
-    usersPgView
+    usersPgView,
+    loginGoogle,
+    loginGoogleCallback
 } = require('./../../controller/userController');
 
 const router = express.Router();
@@ -20,5 +22,8 @@ router.get('/pg', usersPgView);
 router.get('/:id/', (req, res) => {
     res.send('user with id: ' + req.params.id);
 });
+
+router.get('/google/login', loginGoogle);
+router.get('/google/callback', loginGoogleCallback);
 
 module.exports = router;

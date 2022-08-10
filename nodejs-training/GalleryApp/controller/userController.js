@@ -1,3 +1,5 @@
+const passport = require('passport');
+
 const userModel = require('./../models/User');
 
 const loginView = (req, res) => {
@@ -44,10 +46,24 @@ const usersPgView = (req, res) => {
         .catch(err => console.log(err));
 };
 
+// Social Google login
+const loginGoogle = (req, res) => {
+    console.log('Start Google authentication request...');
+    passport.authenticate('google', { scope: ['profile']});
+};
+
+const loginGoogleCallback = (req, res) => {
+    res.render('pages/users/index', {
+        layout: 'layouts/auth'
+    });
+};
+
 module.exports = {
     loginView,
     postLogin,
     registerView,
     usersView,
-    usersPgView
+    usersPgView,
+    loginGoogle,
+    loginGoogleCallback
 };
