@@ -36,7 +36,7 @@ const login = (req, res) => {
         }
 
         if (!user) {
-            res.json({
+            return res.json({
                 success: false,
                 message: 'Email or password are invalid!'
             });
@@ -57,7 +57,7 @@ const login = (req, res) => {
                     name: user.name
                 },
                 secretkey,
-                { expiresIn: '24h'}
+                { expiresIn: '5m' }
             );
 
             res.json({
@@ -74,8 +74,42 @@ const show = (req, res) => {
     });
 }
 
+const changePassword = (req, res) => {
+    User.findOne({ _id: req.user.id }, (err, queryUser) => {
+        if (err) {
+            res.json({ success: false, message: 'User does not exist!' });
+        }
+
+        queryUser.changePassword(req.body.password, req.body.newPassword, (err) => {
+            if(err) {
+                if (err.name === 'IncorrectPasswordError') {
+                    res.json({ success: false, message: 'Incorrect password' });
+                } else {
+                    res.json({ success: false, message: 'Something went wrong!! Please try again after sometimes.' });
+                }
+            } else {
+                res.json({ success: true, message: 'Your password has been changed successfully' });
+            }
+        });
+    });
+}
+
+const logout = async (req, res) => {
+    req.logout(err => {
+        if (err) { 
+            res.json(err);
+        }
+        res.json({
+            message: 'User is logout successfully'
+        });
+    });
+}
+
+
 module.exports = {
     login,
     register,
-    show
+    show,
+    changePassword,
+    logout
 }
