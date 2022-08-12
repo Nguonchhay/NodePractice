@@ -6,14 +6,14 @@ const {
     changePassword,
     logout
 } = require('./../../controller/api/userMongoController');
-const { authMongoMiddleware } = require('./../../middlewares/auth');
+const { authApiMiddleware } = require('./../../middlewares/auth');
 
 const router = express.Router();
 
 router.post('/mongo/register', register);
 router.post('/mongo/login', login);
-router.get('/mongo/me', authMongoMiddleware, show);
-router.put('/mongo/update-password', authMongoMiddleware, changePassword);
-router.post('/mongo/logout', authMongoMiddleware, logout);
+router.get('/mongo/me', authApiMiddleware, show);
+router.put('/mongo/update-password', authApiMiddleware, changePassword);
+router.post('/mongo/logout', authApiMiddleware, logout);
 
 module.exports = router;

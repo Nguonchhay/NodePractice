@@ -1,28 +1,57 @@
-const userModel = require('./../../models/User');
+const jwt = require('jsonwebtoken');
+const passport = require('passport');
+const { initPassportWithJwt } = require('./../../passports/JwtStrategyPostgres');
 
-const login = (req, res) => {
-    res.json({
-        sucess: true,
-        access_token: '12345'
-    });
+initPassportWithJwt(passport);
+
+const login = (req, res, next) => {
+    passport.authenticate('login', { session: false }, async (err, user, info) => {
+        if (err) {
+            res.json({
+                success: false,
+                error: 'Invalid credentials'
+            });
+        } else {
+            const secretkey = 'secretkey';
+            const token = await jwt.sign(
+                {
+                    id: user.id,
+                    email: user.email,
+                    first_name: user.first_name,
+                    last_name: user.last_name
+                },
+                secretkey,
+                { expiresIn: '10m' }
+            );
+    
+            res.json({
+                success: true,
+                token
+            });
+        }
+    })(req, res, next);
 };
 
-const register = (req, res) => {
-    res.json({
-        success: true
-    });
+const register = (req, res, next) => {
+    passport.authenticate('register', { session: false }, (err, user, info) => {
+        if (err) {
+            res.json({
+                success: false,
+                error: 'User already exist!'
+            });
+        } else {
+            res.json({
+                success: true,
+                user
+            });
+        }
+    })(req, res, next);
 }
 
 const show = (req, res) => {
-    if (req.headers.authorization === undefined) {
-        res.status(401).json({
-            success: false,
-            message: 'Unauthorize'
-        });
-    }
-    
     res.json({
-        success: true
+        success: true,
+        user: req.user
     });
 }
 

@@ -84,27 +84,40 @@ require('./docs')(app);
 // sequalizeMysql.sync({ force: true });
 // const sequalizeMysql = require('./services/SequalizeMysql');
 
-//const { sequelize } = require('./models/index');
+switch (process.env.DB_CONNECTION) {
+    case 'postgres':
+        const { sequelize } = require('./models/index');
+        sequelize.authenticate()
+            .then(() => {
+                console.log("PostgreSQL is connected");
+            })
+            .catch(err => {
+                console.log(err);
+            });
+        break;
+    case 'mongo':
+        const conn_str = 'mongodb+srv://admin:admin12345@attractionapp.ld0iq.mongodb.net/galleryapp?retryWrites=true&w=majority'
+        mongoose.connect(
+            conn_str,
+            {
+                useNewUrlParser: true, 
+                useUnifiedTopology: true 
+            },
+            (err) => {
+                if (err) {
+                    console.log(err);
+                } else {
+                    console.log("Mongodb is connected");
+                }
+            }
+        );
+        break;
+    default:
+        console.log('No Database connection was specify!');
+}
 
-const conn_str = 'mongodb+srv://admin:admin12345@attractionapp.ld0iq.mongodb.net/galleryapp?retryWrites=true&w=majority'
-mongoose.connect(
-    conn_str,
-    { 
-        useNewUrlParser: true, 
-        useUnifiedTopology: true 
-    },
-    (err) => {
-        if (err) {
-            console.log(err);
-        } else {
-            console.log("mongodb is connected");
-        }
-    }
-);
 
 const PORT = process.env.PORT || 3003;
-
 app.listen(PORT, async () => {
-    //await sequelize.authenticate();
     console.log(`Server is running on port ${PORT}`);
 });

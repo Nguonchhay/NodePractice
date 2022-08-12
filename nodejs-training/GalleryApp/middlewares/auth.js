@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 
 
-const authMongoMiddleware = (req, res, next) => {
+const authApiMiddleware = (req, res, next) => {
     const authorization = req.body.token || req.query.token || req.headers.authorization;
 
     if (!authorization) {
@@ -30,5 +30,5 @@ const authMongoMiddleware = (req, res, next) => {
 }
 
 module.exports = {
-    authMongoMiddleware
+    authApiMiddleware
 }
