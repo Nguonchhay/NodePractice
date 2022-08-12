@@ -4,6 +4,8 @@ const JwtStrategy = require('passport-jwt').Strategy;
 const ExtractJwt = require('passport-jwt').ExtractJwt;
 const bcryptjs = require('bcryptjs');
 
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
+
 const initPassportWithJwt = (passport) => {
 
     // Passport for register user
@@ -82,6 +84,7 @@ const initPassportWithJwt = (passport) => {
         )
     );
 
+    // General JWT protection
     passport.use(
         'jwt',
         new JwtStrategy(
@@ -108,6 +111,64 @@ const initPassportWithJwt = (passport) => {
             }
         )
     );
+
+    // Passport with Google login
+    passport.use(new GoogleStrategy(
+        {
+            clientID: process.env.GOOGLE_CLIENT_ID,
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+            callbackURL: process.env.GOOGLE_CALLBACK_URL,
+            scope: ['profile', 'email'],
+            state: true
+        },
+        (accessToken, refreshToken, profile, done) => {
+            console.log('Profile => ', profile.emails);
+            try {
+                User.findOne(
+                    {
+                        where: {
+                            email: profile.emails[0].value
+                        }
+                    }
+                ).then(user => {
+                    if (user) {
+                        console.log('User existed');
+                        return done(null, user);
+                    } else {
+                        console.log('New user');
+                        User.create(
+                            {
+                                email: profile.emails[0].value,
+                                password: accessToken,
+                                first_name: profile.name.givenName,
+                                last_name: profile.name.familyName
+                            }
+                        ).then(user => {
+                            return done(null, user)
+                        })
+                        .catch(err => {
+                            return done(err);
+                        });
+                    }
+                });
+            } catch(err) {
+                console.log('Catch', err);
+                return done(err);
+            }
+        }
+    ));
+
+    passport.serializeUser(function(user, cb) {
+        process.nextTick(function() {
+            cb(null, { id: user.id, email: user.email, first_name: user.first_name, last_name: user.last_name });
+        });
+    });
+
+    passport.deserializeUser(function(user, cb) {
+        process.nextTick(function() {
+            return cb(null, user);
+        });
+    });
 }
 
 module.exports = {

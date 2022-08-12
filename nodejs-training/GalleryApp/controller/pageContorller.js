@@ -1,6 +1,6 @@
 const homeView = (req, res) => {
     res.render('pages/home', {
-        user: req.session.user,
+        user: req.session.user || req.user,
         pageTitle: 'Home'
     });
 };
